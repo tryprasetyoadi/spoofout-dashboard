@@ -54,7 +54,7 @@ const login = async () => {
   await authenticateUser(user.value);
   // redirect to homepage if user is authenticated
   if (authenticated) {
-    router.push('/');
+    router.push('/clients');
   }
 };
 </script>
