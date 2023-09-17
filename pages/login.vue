@@ -1,5 +1,4 @@
 <template>
-<nuxt-layout name="clear.vue">
  <div class="container-scroller">
       <div class="container-fluid page-body-wrapper full-page-wrapper">
         <div class="content-wrapper d-flex align-items-center auth">
@@ -7,9 +6,9 @@
             <div class="col-lg-4 mx-auto">
               <div class="auth-form-light text-left p-5">
                 <div>
-                  <img src="https://cubiconia.com/Img/cubiconia.png" style="height:50px !important">
+                  <img src="https://cubiconia.com/Img/cubiconia.png" class="mb-3 " style="height:50px !important">
                 </div>
-                <h4>Hello! let's get started</h4>
+                <h4>Spoofout Dashboard</h4>
                 <h6 class="font-weight-light">Sign in to continue.</h6>
                 <form @submit.prevent="login" class="pt-3">
                   <div class="form-group">
@@ -32,13 +31,15 @@
       </div>
       <!-- page-body-wrapper ends -->
     </div>
-</nuxt-layout>
 </template>
 <script lang="ts" setup>
 
 import { storeToRefs } from 'pinia';
 import { useAuthStore } from '~/store/auth';
 
+definePageMeta({
+  layout: "custom",
+});
 const { authenticateUser } = useAuthStore(); // use auth store
 
 const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive
