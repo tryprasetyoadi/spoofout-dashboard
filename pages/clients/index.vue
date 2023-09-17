@@ -68,7 +68,7 @@ export default {
   methods: {
     async getData() {
       const response = await useFetch(
-        "https://lsp-micro-spoofout-dashboard-api.btqclk.easypanel.host/api/login",
+        "https://lsp-micro-spoofout-dashboard-api.btqclk.easypanel.host/api/clients",
         {
           method: "get",
           headers: { "Content-Type": "application/json" },
@@ -76,7 +76,9 @@ export default {
       );
       console.log(response)
     },
-
   },
+  mounted(){
+    this.getData()
+  }
 };
 </script>
