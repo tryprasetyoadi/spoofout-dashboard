@@ -5,6 +5,8 @@ interface UserPayloadInterface {
   password: string;
 }
 
+
+
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     authenticated: false,
