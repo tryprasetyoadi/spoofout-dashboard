@@ -4,9 +4,9 @@
       <h3 class="page-title">Clients</h3>
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="#">Tables</a></li>
+          <li class="breadcrumb-item"><a href="/clients">Dashboard</a></li>
           <li class="breadcrumb-item active" aria-current="page">
-            Basic tables
+            List Clients
           </li>
         </ol>
       </nav>
@@ -15,9 +15,8 @@
       <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">Striped Table</h4>
+            <h4 class="card-title">List Clients</h4>
             <p class="card-description">
-              Add class <code>.table-striped</code>
             </p>
             <table class="table table-striped">
               <thead>
