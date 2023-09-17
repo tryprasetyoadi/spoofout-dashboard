@@ -67,18 +67,19 @@ export default {
   },
   methods: {
     async getData() {
+      const token = useCookie("token");
       const response = await useFetch(
         "https://lsp-micro-spoofout-dashboard-api.btqclk.easypanel.host/api/clients",
         {
           method: "get",
-          headers: { "Content-Type": "application/json" },
+          headers: [{ "Content-Type": "application/json" }, {'Authorization': 'Bearer '+token}],
         }
       );
-      console.log(response)
+      console.log(response);
     },
   },
-  mounted(){
-    this.getData()
-  }
+  mounted() {
+    this.getData();
+  },
 };
 </script>
