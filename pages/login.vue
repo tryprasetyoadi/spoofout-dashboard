@@ -1,4 +1,5 @@
 <template>
+<nuxt-layout name="clear.vue">
  <div class="container-scroller">
       <div class="container-fluid page-body-wrapper full-page-wrapper">
         <div class="content-wrapper d-flex align-items-center auth">
@@ -31,8 +32,10 @@
       </div>
       <!-- page-body-wrapper ends -->
     </div>
+</nuxt-layout>
 </template>
 <script lang="ts" setup>
+
 import { storeToRefs } from 'pinia';
 import { useAuthStore } from '~/store/auth';
 
