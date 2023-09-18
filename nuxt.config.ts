@@ -1,5 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+
 export default defineNuxtConfig({
+  runtimeConfig: {
+    public: {
+      baseUrl: "https://lsp-micro-spoofout-dashboard-api.btqclk.easypanel.host/api/",
+      appSecret: ""
+    }
+  },
   ssr: false,
   css: [
     '~/assets/vendors/mdi/css/materialdesignicons.min.css',
@@ -8,7 +15,7 @@ export default defineNuxtConfig({
     
   ],
   modules: [
-    // ...
+    
     [
       '@pinia/nuxt',
       {
@@ -17,6 +24,7 @@ export default defineNuxtConfig({
           'defineStore',
         ],
       },
+      
     ],
   ],
 });
