@@ -39,7 +39,7 @@
                   <td>
                       {{ item.token }}
                   </td>
-                  <td>{{item.liveness_range}}/td>
+                  <td>{{item.liveness_range}}</td>
                   <td>{{item.liveness_thresehold}}</td>
                   <td>{{item.created_at}}</td>
                   <td>{{item.updated_at}}</td>
