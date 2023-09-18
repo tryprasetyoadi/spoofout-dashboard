@@ -38,8 +38,9 @@ import { storeToRefs } from 'pinia';
 import { useAuthStore } from '~/store/auth';
 
 definePageMeta({
-  layout: "custom",
+  layout: "clear",
 });
+
 const { authenticateUser } = useAuthStore(); // use auth store
 
 const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive

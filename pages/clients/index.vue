@@ -76,27 +76,4 @@ export default {
   },
 };
 </script>
-// export default {
-//   data() {
-//     return {
-//       data: [],
-//     };
-//   },
-//   methods: {
-//     async getData() {
-//       const token = useCookie("token");
-//       const response = await useFetch(
-//         "https://lsp-micro-spoofout-dashboard-api.btqclk.easypanel.host/api/clients",
-//         {
-//           method: "get",
-//           headers: [{ "Content-Type": "application/json" }, {'Authorization': 'Bearer '+token}],
-//         }
-//       );
-//       console.log(response);
-//     },
-//   },
-//   mounted() {
-//     this.getData();
-//   },
-// };
-// </script>
+
