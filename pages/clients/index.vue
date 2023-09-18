@@ -22,10 +22,12 @@
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>First name</th>
+                  <th>Full Name</th>
                   <th>Progress</th>
-                  <th>Amount</th>
-                  <th>Deadline</th>
+                  <th>Liveness Range</th>
+                  <th>Liveness Thresehold</th>
+                  <th>Created At</th>
+                  <th>Updated At</th>
                 </tr>
               </thead>
               <tbody>
@@ -35,19 +37,12 @@
                   </td>
                   <td>{{ item.nama }}</td>
                   <td>
-                    <div class="progress">
-                      <div
-                        class="progress-bar bg-success"
-                        role="progressbar"
-                        style="width: 25%"
-                        aria-valuenow="25"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                      ></div>
-                    </div>
+                      {{ item.token }}
                   </td>
-                  <td>$ 77.99</td>
-                  <td>May 15, 2015</td>
+                  <td>{{item.liveness_range}}/td>
+                  <td>{{item.liveness_thresehold}}</td>
+                  <td>{{item.created_at}}</td>
+                  <td>{{item.updated_at}}</td>
                 </tr>
               </tbody>
             </table>
@@ -58,27 +53,50 @@
   </div>
 </template>
 <script>
+import axios from '~/services/axios'; // Import the Axios instance you created
+
 export default {
   data() {
     return {
-      data: [],
+      clients: [],
     };
   },
-  methods: {
-    async getData() {
-      const token = useCookie("token");
-      const response = await useFetch(
-        "https://lsp-micro-spoofout-dashboard-api.btqclk.easypanel.host/api/clients",
-        {
-          method: "get",
-          headers: [{ "Content-Type": "application/json" }, {'Authorization': 'Bearer '+token}],
-        }
-      );
-      console.log(response);
-    },
-  },
-  mounted() {
-    this.getData();
+  async asyncData() {
+    try {
+      const response = await axios.get('/api/clients'); // Replace with your API endpoint
+      return {
+        clients: response.data.data, // Assuming your API response structure is { "data": [...] }
+      };
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      return {
+        clients: [],
+      };
+    }
   },
 };
 </script>
+// export default {
+//   data() {
+//     return {
+//       data: [],
+//     };
+//   },
+//   methods: {
+//     async getData() {
+//       const token = useCookie("token");
+//       const response = await useFetch(
+//         "https://lsp-micro-spoofout-dashboard-api.btqclk.easypanel.host/api/clients",
+//         {
+//           method: "get",
+//           headers: [{ "Content-Type": "application/json" }, {'Authorization': 'Bearer '+token}],
+//         }
+//       );
+//       console.log(response);
+//     },
+//   },
+//   mounted() {
+//     this.getData();
+//   },
+// };
+// </script>
