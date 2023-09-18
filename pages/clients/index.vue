@@ -16,8 +16,7 @@
         <div class="card">
           <div class="card-body">
             <h4 class="card-title">List Clients</h4>
-            <p class="card-description">
-            </p>
+            <p class="card-description"></p>
             <table class="table table-striped">
               <thead>
                 <tr>
@@ -37,12 +36,12 @@
                   </td>
                   <td>{{ item.nama }}</td>
                   <td>
-                      {{ item.token }}
+                    {{ item.token }}
                   </td>
-                  <td>{{item.liveness_range}}</td>
-                  <td>{{item.liveness_thresehold}}</td>
-                  <td>{{item.created_at}}</td>
-                  <td>{{item.updated_at}}</td>
+                  <td>{{ item.liveness_range }}</td>
+                  <td>{{ item.liveness_thresehold }}</td>
+                  <td>{{ item.created_at }}</td>
+                  <td>{{ item.updated_at }}</td>
                 </tr>
               </tbody>
             </table>
@@ -53,7 +52,7 @@
   </div>
 </template>
 <script>
-import axios from '~/services/axios'; // Import the Axios instance you created
+import axios from "~/services/axios"; // Import the Axios instance you created
 
 export default {
   data() {
@@ -61,18 +60,23 @@ export default {
       clients: [],
     };
   },
-  async asyncData() {
-    try {
-      const response = await axios.get('/api/clients'); // Replace with your API endpoint
-      return {
-        clients: response.data.data, // Assuming your API response structure is { "data": [...] }
-      };
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      return {
-        clients: [],
-      };
-    }
+  methods: {
+    async asyncData() {
+      try {
+        const response = await axios.get("/api/clients"); // Replace with your API endpoint
+        return {
+          clients: response.data.data, // Assuming your API response structure is { "data": [...] }
+        };
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        return {
+          clients: [],
+        };
+      }
+    },
+  },
+  mounted() {
+    this.asyncData();
   },
 };
 </script>
