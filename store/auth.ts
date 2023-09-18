@@ -15,7 +15,7 @@ export const useAuthStore = defineStore('auth', {
   actions: {
     async authenticateUser({ email, password }: UserPayloadInterface) {
       // useFetch from nuxt 3
-      const { data, pending }: any = await useFetch('https://lsp-micro-spoofout-dashboard-api.btqclk.easypanel.host/api/login', {
+      const { data, pending }: any = await useFetch(' ', {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
         body: {
