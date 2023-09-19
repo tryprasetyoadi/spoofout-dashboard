@@ -5,7 +5,9 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="/clients">Dashboard</a></li>
-          <li class="breadcrumb-item active" aria-current="page">List Clients</li>
+          <li class="breadcrumb-item active" aria-current="page">
+            List Clients
+          </li>
         </ol>
       </nav>
     </div>
@@ -28,7 +30,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="client in clients.data.data" :key="client.id">
+                <tr v-for="(client,index) in clients" :key="index">
                   <td>{{ client.id }}</td>
                   <td>{{ client.name }}</td>
                   <td>{{ client.token }}</td>
@@ -45,26 +47,29 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import axios from '~/services/axios'; // Import the Axios instance you created
-
-
-const runTimeConfig = useRuntimeConfig();
-
-const {
-  data: clients,
-  error,
-  refresh,
-  pending,
-} = useFetch('/clients', {
-  headers: {
-    Authorization: `Bearer ${runTimeConfig.public.appSecret}`,
+<script>
+export default {
+  data() {
+    return {
+      clients: [],
+    };
   },
-  baseURL: runTimeConfig.public.baseUrl,
-});
+  methods: {
+    async getData() {
+      const runTimeConfig = useRuntimeConfig();
+
+      const { data:dataClient, error, refresh, pending } = await useFetch("/clients", {
+        headers: {
+          Authorization: `Bearer ${runTimeConfig.public.appSecret}`,
+        },
+        baseURL: runTimeConfig.public.baseUrl,
+      });
+      this.clients = dataClient.value.data.data;
+      console.log(this.clients);
+    },
+  },
+  mounted() {
+    this.getData();
+  },
+};
 </script>
-
-
-
-
