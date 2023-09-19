@@ -7,7 +7,8 @@
         <form @submit.prevent="postData" class="forms-sample">
           <div class="form-group">
             <label for="exampleInputName1">Name</label>
-            <input v-model="formData.name"
+            <input
+              v-model="formData.name"
               type="text"
               class="form-control"
               id="exampleInputName1"
@@ -16,7 +17,8 @@
           </div>
           <div class="form-group">
             <label for="exampleInputEmail3">Token</label>
-            <input v-model="formData.token"
+            <input
+              v-model="formData.token"
               type="text"
               class="form-control"
               id="exampleInputName1"
@@ -25,7 +27,8 @@
           </div>
           <div class="form-group">
             <label for="exampleInputName1">Liveness Range</label>
-            <input v-model="formData.liveness_range"
+            <input
+              v-model="formData.liveness_range"
               type="text"
               class="form-control"
               id="exampleInputName1"
@@ -34,19 +37,39 @@
           </div>
           <div class="form-group">
             <label for="exampleInputName1">Liveness Threshold</label>
-            <input type="text" class="form-control" id="exampleInputName1" placeholder="Liveness Thresehold" v-model="formData.liveness_threshold">
+            <input
+              type="text"
+              class="form-control"
+              id="exampleInputName1"
+              placeholder="Liveness Thresehold"
+              v-model="formData.liveness_threshold"
+            />
           </div>
           <div class="form-group">
             <label>FR Range</label>
-            <input type="text" class="form-control" id="exampleInputName1" placeholder="FR Range" v-model="formData.fr_range">
+            <input
+              type="text"
+              class="form-control"
+              id="exampleInputName1"
+              placeholder="FR Range"
+              v-model="formData.fr_range"
+            />
           </div>
           <div class="form-group">
             <label for="exampleInputName1">FR Thresehold</label>
             <input
-              type="text" class="form-control" id="exampleInputName1" placeholder="FR Thresehold" v-model="formData.fr_threshold" 
+              type="text"
+              class="form-control"
+              id="exampleInputName1"
+              placeholder="FR Thresehold"
+              v-model="formData.fr_threshold"
             />
           </div>
-          <button type="submit" class="btn btn-gradient-primary me-2">
+          <button
+            type="submit"
+            @click="backToClients"
+            class="btn btn-gradient-primary me-2"
+          >
             Submit
           </button>
         </form>
@@ -56,8 +79,21 @@
 </template>
 
 <script>
+import { useRouter } from 'vue-router';
 const runTimeConfig = useRuntimeConfig();
 export default {
+  setup() {
+    const router = useRouter();
+
+    // Function to navigate back to /clients
+    const backToClients = () => {
+      router.push('/clients'); // Use router.push to navigate to the /clients route
+    };
+
+    return {
+      backToClients,
+    };
+  },
   data() {
     return {
       clients: [],
@@ -68,7 +104,7 @@ export default {
         liveness_thresehold: "",
         fr_range: "",
         fr_threshold: "",
-        is_active:1
+        is_active: 1,
       },
     };
   },
@@ -90,6 +126,7 @@ export default {
       this.clients = dataClient.value.data.data;
       console.log(this.clients);
     },
+    
   },
 };
 </script>

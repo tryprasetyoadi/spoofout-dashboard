@@ -39,7 +39,7 @@
               <label for="exampleInputPassword1">Confirm Password</label>
               <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Confirm Password" v-model="formData.confirm_password">
             </div>
-            <button type="submit" class="btn btn-gradient-primary me-2">
+            <button type="submit" @click="backToClients" class="btn btn-gradient-primary me-2">
               Submit
             </button>
           </form>
@@ -51,6 +51,18 @@
   <script>
   const runTimeConfig = useRuntimeConfig();
   export default {
+    setup() {
+    const router = useRouter();
+
+    // Function to navigate back to /clients
+    const backToClients = () => {
+      router.push('/clients'); // Use router.push to navigate to the /clients route
+    };
+
+    return {
+      backToClients,
+    };
+  },
     data() {
       return {
         register: [],
