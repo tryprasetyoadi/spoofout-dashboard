@@ -30,14 +30,14 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(client,index) in clients" :key="index">
+                <tr v-for="(client, index) in clients" :key="index">
                   <td>{{ client.id }}</td>
                   <td>{{ client.name }}</td>
                   <td>{{ client.token }}</td>
                   <td>{{ client.liveness_range }}</td>
                   <td>{{ client.liveness_threshold }}</td>
-                  <td>{{ client.created_at }}</td>
-                  <td>{{ client.updated_at }}</td>
+                  <td>{{ momentFormat(client.created_at) }}</td>
+                  <td>{{ momentFormat(client.updated_at) }}</td>
                 </tr>
               </tbody>
             </table>
@@ -48,6 +48,7 @@
   </div>
 </template>
 <script>
+import moment from "moment";
 export default {
   data() {
     return {
@@ -58,7 +59,12 @@ export default {
     async getData() {
       const runTimeConfig = useRuntimeConfig();
 
-      const { data:dataClient, error, refresh, pending } = await useFetch("/clients", {
+      const {
+        data: dataClient,
+        error,
+        refresh,
+        pending,
+      } = await useFetch("/clients", {
         headers: {
           Authorization: `Bearer ${runTimeConfig.public.appSecret}`,
         },
@@ -66,6 +72,9 @@ export default {
       });
       this.clients = dataClient.value.data.data;
       console.log(this.clients);
+    },
+    momentFormat(date) {
+      return moment(date).format("DD MMMM YYYY - HH:mm:ss");
     },
   },
   mounted() {

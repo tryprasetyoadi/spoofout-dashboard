@@ -27,5 +27,9 @@ export default defineNuxtConfig({
       
     ],
   ],
+  vite: {
+    // @ts-ignore
+    ssr: {noExternal: ["moment"]}
+  }
 });
 
