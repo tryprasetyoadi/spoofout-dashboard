@@ -2,8 +2,8 @@
     <div class="col-12 grid-margin stretch-card">
       <div class="card">
         <div class="card-body">
-          <h4 class="card-title">Basic form elements</h4>
-          <p class="card-description">Basic form elements</p>
+          <h4 class="card-title">Add User Admin</h4>
+          <p class="card-description"></p>
           <form @submit.prevent="postData" class="forms-sample">
             <div class="form-group">
               <label for="exampleInputName1">Name</label>

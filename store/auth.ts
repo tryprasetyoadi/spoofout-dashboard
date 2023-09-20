@@ -27,6 +27,8 @@ export const useAuthStore = defineStore('auth', {
 
       if (data.value) {
         const token = useCookie('token'); // useCookie new hook in nuxt 3
+        const user = useCookie('user'); // useCookie new hook in nuxt 3
+        user.value = data?.value?.data;
         token.value = data?.value?.token; // set token to cookie
         this.authenticated = true; // set authenticated  state value to true
       }

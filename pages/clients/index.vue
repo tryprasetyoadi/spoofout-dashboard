@@ -62,6 +62,7 @@
 import moment from "moment";
 import axios from 'axios';
 import { useRouter } from 'vue-router';
+const runTimeConfig = useRuntimeConfig();
 export default {
   setup() {
     const router = useRouter();
@@ -82,7 +83,6 @@ export default {
   },
   methods: {
     async getData() {
-      const runTimeConfig = useRuntimeConfig();
 
       const {
         data: dataClient,
@@ -126,9 +126,9 @@ export default {
 
 
       });
-      window.location.reload();
       this.clients = dataClient.value.data.data;
       console.log(this.clients);
+      this.getData();
 
 
     },

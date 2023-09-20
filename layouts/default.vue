@@ -13,12 +13,7 @@
           
           <ul class="navbar-nav navbar-nav-right">
             <li class="nav-item nav-profile dropdown">
-              <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-               
-                <div class="nav-profile-text">
-                  <p class="mb-1 text-black">Grey</p>
-                </div>
-              </a>
+              
               <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
                 <a class="dropdown-item" href="#">
                   <i class="mdi mdi-cached me-2 text-success"></i> Activity Log </a>
@@ -116,6 +111,7 @@
             </li>
             <li class="nav-item nav-logout d-none d-lg-block">
               <a class="nav-link" href="#" @click="logout">
+                <b>Log Out</b>
                 <i class="mdi mdi-power"></i>
               </a>
             </li>
@@ -139,8 +135,8 @@
               <a href="#" class="nav-link">
                 
                 <div class="nav-profile-text d-flex flex-column">
-                  <span class="font-weight-bold mb-2">David Grey. H</span>
-                  <span class="text-secondary text-small">Project Manager</span>
+                  <span class="font-weight-bold mb-2">{{useCookie('user').value.name}}</span>
+                  <span class="text-secondary text-small">Admin</span>
                 </div>
                 <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
               </a>
@@ -168,7 +164,7 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/clients/user">
-                <span class="menu-title">Add Admin</span>
+                <span class="menu-title">Add User Admin</span>
                 <i class="mdi mdi-format-list-bulleted menu-icon"></i>
               </a>
             </li>  
@@ -181,8 +177,8 @@
           <!-- partial:../../partials/_footer.html -->
           <footer class="footer">
             <div class="container-fluid d-flex justify-content-between">
-              <span class="text-muted d-block text-center text-sm-start d-sm-inline-block">Copyright © bootstrapdash.com 2021</span>
-              <span class="float-none float-sm-end mt-1 mt-sm-0 text-end"> Free <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin template</a> from Bootstrapdash.com</span>
+              <span class="text-muted d-block text-center text-sm-start d-sm-inline-block">Copyright © Cubiconia 2023</span>
+              <span class="float-none float-sm-end mt-1 mt-sm-0 text-end"><a href="https://www.cubiconia.net/" target="_blank"></a>Cubiconia.net</span>
             </div>
           </footer>
           <!-- partial -->
@@ -195,6 +191,7 @@
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia';
 import { useAuthStore } from '~/store/auth';
+
 
 const router = useRouter();
 
