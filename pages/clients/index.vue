@@ -14,44 +14,46 @@
     <div class="row">
       <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
-          <div class="card-body ">
+          <div class="card-body">
             <h4 class="card-title">List Clients</h4>
             <p class="card-description"></p>
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>No.</th>
-                  <th>Full Name</th>
-                  <th>Token</th>
-                  <th>Liveness Range</th>
-                  <th>Liveness Threshold</th>
-                  <th>Created At</th>
-                  <th>Updated At</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(client, index) in  clients " :key="index">
-                  <td>{{ index + 1 }}</td>
-                  <td>{{ client.name }}</td>
-                  <td>{{ client.token }}</td>
-                  <td>{{ client.liveness_range }}</td>
-                  <td>{{ client.liveness_threshold }}</td>
-                  <td>{{ momentFormat(client.created_at) }}</td>
-                  <td>{{ momentFormat(client.updated_at) }}</td>
-
-                  <div class="d-flex align-items-center list-user-action justify-content-end">
-                    <nuxt-link :to="'/clients/update?id=' + client.id" class="text-primary">
-                      <i class="mdi mdi-table-edit"></i>
-                    </nuxt-link>
-
-                    <button @click="deleteClient(client.id)" class="btn text-primary">
-                      <i class="mdi mdi-delete"></i>
-                    </button>
-                  </div>
-
-                </tr>
-              </tbody>
-            </table>
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>Full Name</th>
+                    <th>Token</th>
+                    <th>Liveness Range</th>
+                    <th>Liveness Threshold</th>
+                    <th>Created At</th>
+                    <th>Updated At</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(client, index) in clients" :key="index">
+                    <td>{{ index + 1 }}</td>
+                    <td>{{ client.name }}</td>
+                    <td>{{ client.token }}</td>
+                    <td>{{ client.liveness_range }}</td>
+                    <td>{{ client.liveness_threshold }}</td>
+                    <td>{{ momentFormat(client.created_at) }}</td>
+                    <td>{{ momentFormat(client.updated_at) }}</td>
+                    <td>
+                      <div class="d-flex align-items-center list-user-action justify-content-end">
+                        <nuxt-link :to="'/clients/update?id=' + client.id" class="text-primary">
+                          <i class="mdi mdi-table-edit"></i>
+                        </nuxt-link>
+                        <button @click="deleteClient(client.id)" class="btn text-primary">
+                          <i class="mdi mdi-delete"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
