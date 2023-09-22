@@ -67,7 +67,6 @@
           </div>
           <button
             type="submit"
-            @click="backToClients"
             class="btn btn-gradient-primary me-2"
           >
             Update
@@ -147,10 +146,11 @@ export default {
           Authorization: `Bearer ${runTimeConfig.public.appSecret}`,
         },
         baseURL: runTimeConfig.public.baseUrl,
-        method: "delete",
+        method: "post",
         body: this.data,
       });
-      if (!error) {
+      console.log('err',error);
+      if (dataClient.value) {
         this.backToClients();
       }
     },

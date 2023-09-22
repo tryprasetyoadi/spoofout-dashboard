@@ -32,6 +32,9 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <tr v-if="clients.length==0">
+                  <td class="text-center" colspan="8">Data Kosong</td>
+                </tr>
                   <tr v-for="(client, index) in clients" :key="index">
                     <td>{{ index + 1 }}</td>
                     <td>{{ client.name }}</td>
@@ -123,7 +126,7 @@ export default {
           Authorization: `Bearer ${runTimeConfig.public.appSecret}`,
         },
         baseURL: runTimeConfig.public.baseUrl,
-        method: "post",
+        method: "delete",
         body: this.formData,
 
 
