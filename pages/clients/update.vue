@@ -142,7 +142,7 @@ export default {
         error,
         refresh,
         pending,
-      } = await useFetch(`update/${this.$route.query.id}`, {
+      } = await useFetch(`/update/${this.$route.query.id}`, {
         headers: {
           Authorization: `Bearer ${runTimeConfig.public.appSecret}`,
         },
