@@ -147,7 +147,7 @@ export default {
           Authorization: `Bearer ${runTimeConfig.public.appSecret}`,
         },
         baseURL: runTimeConfig.public.baseUrl,
-        method: "post",
+        method: "delete",
         body: this.data,
       });
       if (!error) {
