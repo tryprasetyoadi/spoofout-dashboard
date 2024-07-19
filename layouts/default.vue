@@ -35,7 +35,8 @@
               <i class="mdi mdi-email-outline"></i>
               <span class="count-symbol bg-warning"></span>
             </a>
-            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
+              aria-labelledby="messageDropdown">
               <h6 class="p-3 mb-0">Messages</h6>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item preview-item">
@@ -147,12 +148,7 @@
               <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="../../clients">
-              <span class="menu-title">Dashboard</span>
-              <i class="mdi mdi-home menu-icon"></i>
-            </a>
-          </li>
+
           <li class="nav-item">
 
             <div class="collapse" id="ui-basic">
@@ -164,17 +160,12 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/clients/add">
-              <span class="menu-title">Add Client</span>
+            <a class="nav-link" href="/clients">
+              <span class="menu-title">Client Management</span>
               <i class="mdi mdi-contacts menu-icon"></i>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/clients/user">
-              <span class="menu-title">Add Admin</span>
-              <i class="mdi mdi-format-list-bulleted menu-icon"></i>
-            </a>
-          </li>
+
         </ul>
       </nav>
       <!-- partial -->
@@ -184,7 +175,8 @@
         <!-- partial:../../partials/_footer.html -->
         <footer class="footer">
           <div class="container-fluid d-flex justify-content-between">
-            <span class="text-muted d-block text-center text-sm-start d-sm-inline-block">Copyright © Cubiconia 2023</span>
+            <span class="text-muted d-block text-center text-sm-start d-sm-inline-block">Copyright © Cubiconia
+              2023</span>
             <span class="float-none float-sm-end mt-1 mt-sm-0 text-end"><a href="https://www.cubiconia.net/"
                 target="_blank"></a>Cubiconia.net</span>
           </div>

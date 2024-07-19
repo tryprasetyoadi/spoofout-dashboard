@@ -6,9 +6,11 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "host": "vite --host"
   },
   "devDependencies": {
+    "@nuxtjs/dotenv": "^1.4.2",
     "@nuxtjs/eslint-config-typescript": "^12.0.0",
     "@nuxtjs/tailwindcss": "^6.1.3",
     "eslint": "^8.40.0",
@@ -25,10 +27,13 @@
     "@pinia/nuxt": "^0.4.10",
     "axios": "^1.5.0",
     "cookie-universal": "^2.2.2",
+    "dotenv": "^16.4.5",
     "gh-pages": "^5.0.0",
     "moment": "^2.29.4",
+    "nuxt-sweetalert2": "^1.0.0",
     "pinia": "^2.0.36",
     "router": "^1.3.8",
+    "sweetalert2": "^11.12.2",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4",
     "vue-sweetalert2": "^5.0.5",

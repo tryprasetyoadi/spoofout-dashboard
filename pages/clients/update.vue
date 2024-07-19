@@ -7,75 +7,36 @@
         <form @submit.prevent="submitForm" class="forms-sample">
           <div class="form-group">
             <label for="exampleInputName1">Name</label>
-            <input
-              v-model="data.name"
-              type="text"
-              class="form-control"
-              id="exampleInputName1"
-              placeholder="Name"
-            />
+            <input v-model="data.name" type="text" class="form-control" id="exampleInputName1" placeholder="Name" />
           </div>
           <div class="form-group">
             <label for="exampleInputEmail3">Token</label>
-            <input
-              v-model="data.token"
-              type="text"
-              class="form-control"
-              id="exampleInputEmail3"
-              placeholder="Token"
-            />
+            <input v-model="data.token" type="text" class="form-control" id="exampleInputEmail3" placeholder="Token" />
           </div>
           <div class="form-group">
             <label for="exampleInputName1">Liveness Range</label>
-            <input
-              v-model="data.liveness_range"
-              type="text"
-              class="form-control"
-              id="exampleInputName1"
-              placeholder="Liveness Range"
-            />
+            <input v-model="data.liveness_range" type="text" class="form-control" id="exampleInputName1"
+              placeholder="Liveness Range" />
           </div>
           <div class="form-group">
             <label for="exampleInputName1">Liveness Threshold</label>
-            <input
-              v-model="data.liveness_threshold"
-              type="text"
-              class="form-control"
-              id="exampleInputName1"
-              placeholder="Liveness Threshold"
-            />
+            <input v-model="data.liveness_threshold" type="text" class="form-control" id="exampleInputName1"
+              placeholder="Liveness Threshold" />
           </div>
           <div class="form-group">
             <label for="exampleInputName1">FR Range</label>
-            <input
-              v-model="data.fr_range"
-              type="text"
-              class="form-control"
-              id="exampleInputName1"
-              placeholder="FR Range"
-            />
+            <input v-model="data.fr_range" type="text" class="form-control" id="exampleInputName1"
+              placeholder="FR Range" />
           </div>
           <div class="form-group">
             <label for="exampleInputName1">FR Threshold</label>
-            <input
-              v-model="data.fr_threshold"
-              type="text"
-              class="form-control"
-              id="exampleInputName1"
-              placeholder="FR Threshold"
-            />
+            <input v-model="data.fr_threshold" type="text" class="form-control" id="exampleInputName1"
+              placeholder="FR Threshold" />
           </div>
-          <button
-            type="submit"
-            class="btn btn-gradient-primary me-2"
-          >
+          <button type="submit" class="btn btn-gradient-primary me-2">
             Update
           </button>
-          <button
-            type="button"
-            @click="backToClients"
-            class="btn btn-secondary"
-          >
+          <button type="button" @click="backToClients" class="btn btn-secondary">
             Back
           </button>
         </form>
@@ -86,7 +47,7 @@
 
 <script>
 const runTimeConfig = useRuntimeConfig();
-
+import Swal from 'sweetalert2';
 export default {
   setup() {
     const router = useRouter();
@@ -136,24 +97,79 @@ export default {
       }
     },
     async submitForm() {
-      const {
-        data: dataClient,
-        error,
-        refresh,
-        pending,
-      } = await useFetch(`/update/${this.$route.query.id}`, {
-        headers: {
-          Authorization: `Bearer ${runTimeConfig.public.appSecret}`,
-        },
-        baseURL: runTimeConfig.public.baseUrl,
-        method: "post",
-        body: this.data,
+      const runTimeConfig = useRuntimeConfig();
+
+      const confirmation = await Swal.fire({
+        title: 'Apakah Anda yakin?',
+        text: 'Apakah Anda benar-benar ingin memperbarui klien ini?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Ya, perbarui!',
+        cancelButtonText: 'Tidak, batalkan',
       });
-      console.log('err',error);
-      if (dataClient.value) {
-        this.backToClients();
+
+      if (confirmation.isConfirmed) {
+        Swal.fire({
+          title: 'Memuat...',
+          text: 'Memperbarui klien, mohon tunggu!',
+        });
+        Swal.showLoading();
+
+        try {
+          const { data: dataClient, error, refresh, pending } = await useFetch(`/update/${this.$route.query.id}`, {
+            headers: {
+              Authorization: `Bearer ${runTimeConfig.public.appSecret}`,
+            },
+            baseURL: runTimeConfig.public.baseUrl,
+            method: "post",
+            body: this.data,
+          });
+
+          Swal.close();
+
+          Swal.fire({
+            title: 'Berhasil!',
+            text: 'Klien berhasil diperbarui!',
+            icon: 'success',
+          });
+          if (dataClient.value) {
+            this.backToClients();
+          }
+          if (error) {
+            throw error;
+          }
+
+
+        } catch (error) {
+          let errorMessage = 'Terjadi kesalahan.';
+          const responseData = error.value.data;
+          if (responseData) {
+            if (responseData.message) {
+              errorMessage = responseData.message;
+            }
+            if (responseData.errors) {
+              errorMessage += '\n\Detail:\n';
+              for (const [field, messages] of Object.entries(responseData.errors)) {
+                errorMessage += `${field}: ${messages.join(', ')}\n`;
+              }
+            }
+          }
+
+          Swal.fire({
+            icon: 'error',
+            title: 'Terjadi Kesalahan',
+            text: errorMessage,
+          });
+        }
+      } else {
+        Swal.fire({
+          title: 'Dibatalkan',
+          text: 'Pembaruan klien dibatalkan.',
+          icon: 'info',
+        });
       }
-    },
+    }
+
 
     // Your backToClients method code
   },

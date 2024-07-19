@@ -1,7 +1,7 @@
 <template>
   <div class="content-wrapper">
     <div class="page-header">
-      <h3 class="page-title">Clients</h3>
+      <h3 class="page-title">List Clients</h3>
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="/clients">Dashboard</a></li>
@@ -15,7 +15,15 @@
       <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">List Clients</h4>
+
+            <div class="justify-content-end">
+              <a class="nav-link" href="/clients/add">
+
+                <button class="btn btn-gradient-primary me-2">
+                  Add Client
+                </button>
+              </a>
+            </div>
             <p class="card-description"></p>
             <div class="table-responsive">
               <table class="table table-striped">
@@ -32,9 +40,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-if="clients.length==0">
-                  <td class="text-center" colspan="8">Data Kosong</td>
-                </tr>
+                  <tr v-if="clients.length == 0">
+                    <td class="text-center" colspan="8">Data Kosong</td>
+                  </tr>
                   <tr v-for="(client, index) in clients" :key="index">
                     <td>{{ index + 1 }}</td>
                     <td>{{ client.name }}</td>
@@ -67,6 +75,7 @@
 import moment from "moment";
 import axios from 'axios';
 import { useRouter } from 'vue-router';
+import Swal from 'sweetalert2';
 const runTimeConfig = useRuntimeConfig();
 export default {
   setup() {
@@ -116,27 +125,78 @@ export default {
     },
     async deleteClient(id) {
       const runTimeConfig = useRuntimeConfig();
-      const {
-        data: dataClient,
-        error,
-        refresh,
-        pending,
-      } = await useFetch(`/delete-clients/${id}`, {
-        headers: {
-          Authorization: `Bearer ${runTimeConfig.public.appSecret}`,
-        },
-        baseURL: runTimeConfig.public.baseUrl,
-        method: "delete",
-        body: this.formData,
 
-
+      const confirmation = await Swal.fire({
+        title: 'Apa anda yakin?',
+        text: 'Apa anda yakin ingin menghapus data?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Ya!',
+        cancelButtonText: 'Tidak, batalkan!',
       });
-      this.clients = dataClient.value.data.data;
-      console.log(this.clients);
-      this.getData();
 
+      if (confirmation.isConfirmed) {
+        Swal.fire({
+          title: 'Loading...',
+          text: 'Menghapus data, mohon ditunggu!',
+        });
+        Swal.showLoading();
 
-    },
+        try {
+          const { data: dataClient, error, refresh, pending } = await useFetch(`/delete-clients/${id}`, {
+            headers: {
+              Authorization: `Bearer ${runTimeConfig.public.appSecret}`,
+            },
+            baseURL: runTimeConfig.public.baseUrl,
+            method: "delete",
+          });
+
+          Swal.close();
+
+          if (error) {
+            throw error;
+          }
+
+          Swal.fire({
+            title: 'Success!',
+            text: 'Client deleted successfully!',
+            icon: 'success',
+          });
+
+          this.clients = dataClient.value.data.data;
+          console.log(this.clients);
+          this.getData();
+        } catch (error) {
+          let errorMessage = 'An error occurred.';
+
+          if (error.response && error.response.data) {
+            const responseData = error.response.data;
+            if (responseData.message) {
+              errorMessage = responseData.message;
+            }
+            if (responseData.errors) {
+              errorMessage += '\n\nDetails:\n';
+              for (const [field, messages] of Object.entries(responseData.errors)) {
+                errorMessage += `${field}: ${messages.join(', ')}\n`;
+              }
+            }
+          }
+
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: errorMessage,
+          });
+        }
+      } else {
+        Swal.fire({
+          title: 'Cancelled',
+          text: 'Client deletion was cancelled.',
+          icon: 'info',
+        });
+      }
+    }
+
 
 
   },

@@ -1,6 +1,8 @@
 import axios from "axios";
+
 export default defineNuxtPlugin((nuxtApp) => {
-  const defaultUrl = "https://lsp-micro-spoofout-dashboard-api.btqclk.easypanel.host";
+  const process = useRuntimeConfig();
+  const defaultUrl = `${process.public.baseUrl}`;
 
   let api = axios.create({
     baseUrl: defaultUrl,
@@ -8,7 +10,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       common: {},
     },
   });
-return {
+  return {
     provide: {
       api: api,
     },
